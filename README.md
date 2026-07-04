@@ -1,6 +1,6 @@
 # Goog Demo Project
 
-This demonstrates how to use the **goog GitHub Action** to automatically generate Open Graph images from Markdown frontmatter.
+This demonstrates how to use the **goog GitHub Action** (v2) to automatically generate Open Graph images from Markdown frontmatter.
 
 ## Project Structure
 
@@ -22,17 +22,20 @@ demo/
 
 ## How the GitHub Action Works
 
-The workflow at `.github/workflows/og-images.yml` uses the **riceball-tw/goog@v1** action:
+The workflow at `.github/workflows/og-images.yml` uses the **riceball-tw/goog@v2** action:
 
 ```yaml
-- uses: riceball-tw/goog@v1
+- id: generate
+  uses: riceball-tw/goog@v2
   with:
     scan_markdown: content/blog    # Directory to scan for .md files
     template: templates/og.html    # Optional custom template
-    commit: "true"                 # Auto-commit generated images
-    commit_message: "chore: update OG images [skip ci]"
-    github_token: ${{ secrets.GITHUB_TOKEN }}
     post_preview: "true"           # Post image previews on PRs
+- uses: actions/upload-artifact@v4
+  with:
+    name: og-images
+    path: ${{ steps.generate.outputs.artifact_path }}
+    if-no-files-found: error
 ```
 
 ### Trigger Events
@@ -42,8 +45,8 @@ The workflow at `.github/workflows/og-images.yml` uses the **riceball-tw/goog@v1
 ### What It Does
 1. Scans `content/blog/` for `.md` files with `ogImage` frontmatter
 2. Generates OG images using the specified template
-3. Saves images to `public/og/<slug>.png` (or next to source)
-4. Commits changes back to the repo (with `[skip ci]`)
+3. Saves images to the artifact staging directory
+4. Uploads generated images as a workflow artifact (downloadable from the run page)
 5. Posts image previews as PR comments
 
 ## Required Frontmatter Format
@@ -82,22 +85,30 @@ To publish your own version to GitHub Marketplace:
 1. **Create a new repo** (e.g., `my-org/goog-action`)
 2. **Add action.yml** (already exists in parent repo root)
 3. **Tag a release**:
-   ```bash
-   git tag v1.0.0
-   git push origin v1.0.0
-   ```
+    ```bash
+    git tag v2.0.0
+    git push origin v2.0.0
+    ```
 4. **Publish to Marketplace** (optional):
    - Go to repo Settings → GitHub Actions → Publish to Marketplace
-   - Or users can reference directly: `uses: my-org/goog-action@v1`
+   - Or users can reference directly: `uses: my-org/goog-action@v2`
 
 ## Action Inputs
 
 | Input | Required | Default | Description |
 |-------|----------|---------|-------------|
-| `scan_markdown` | Yes | - | Directory to scan for .md files |
-| `template` | No | default template | Custom HTML template path |
-| `commit` | No | `"false"` | Auto-commit generated images |
-| `commit_message` | No | `"chore: update OG images"` | Commit message |
-| `github_token` | If commit=true | - | Token for pushing commits |
-| `post_preview` | No | `"false"` | Post image previews on PRs |
-| `workers` | No | `4` | Parallel workers for generation |
+| `scan_markdown` | No | - | Directory to scan for .md files |
+| `config` | No | - | Path to JSON config file for batch generation |
+| `template` | No | `templates/og.html` | Custom HTML template path |
+| `workers` | No | `4` | Number of concurrent workers |
+| `post_preview` | No | `"true"` | Post image previews on PRs |
+| `artifact_path` | No | `goog-artifacts` | Directory for staging generated images |
+| `ignore_patterns` | No | `README.md` | Comma-separated glob patterns to ignore |
+| `github_token` | No | `${{ github.token }}` | GitHub token for PR comments |
+
+## Action Outputs
+
+| Output | Description |
+|--------|-------------|
+| `artifact_path` | Directory containing generated images (for `actions/upload-artifact`) |
+| `generated_images` | Newline-separated list of generated image paths |

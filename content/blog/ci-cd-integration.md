@@ -32,12 +32,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: riceball-tw/goog@v1
+      - id: generate
+        uses: riceball-tw/goog@v2
         with:
           scan_markdown: content/blog
-          commit: "true"
-          commit_message: "chore: update OG images [skip ci]"
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: og-images
+          path: ${{ steps.generate.outputs.artifact_path }}
+          if-no-files-found: error
 ```
 
 ## PR Previews
