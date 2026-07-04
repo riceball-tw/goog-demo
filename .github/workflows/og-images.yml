@@ -5,10 +5,10 @@ on:
   #   paths:
   #     - 'content/**/*.md'
   #     - 'templates/**'
-  # pull_request:
-  #   paths:
-  #     - 'content/**/*.md'
-  #     - 'templates/**'
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'templates/**'
 
 jobs:
   generate:
