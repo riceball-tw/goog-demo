@@ -1,7 +1,7 @@
 ---
 title: "Advanced Goog Usage"
 ogImage:
-  title: "Advanced Goog Usage"
+  title: "Advanced Goog Usage Demo"
   tag: "Advanced"
   description: "Batch generation, custom templates, and CI/CD integration"
   site_name: "myblog.dev"
