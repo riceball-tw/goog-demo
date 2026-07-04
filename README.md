@@ -38,6 +38,15 @@ The workflow at `.github/workflows/og-images.yml` uses the **riceball-tw/goog@v2
     if-no-files-found: error
 ```
 
+> **PR previews** require `pull-requests: write` permission on the job. Add to your workflow:
+> ```yaml
+> jobs:
+>   generate:
+>     permissions:
+>       contents: read
+>       pull-requests: write
+> ```
+
 ### Trigger Events
 - **Push to main**: When markdown files or templates change
 - **Pull requests**: On PRs touching markdown/templates
