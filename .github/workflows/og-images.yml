@@ -5,20 +5,23 @@ on:
   #   paths:
   #     - 'content/**/*.md'
   #     - 'templates/**'
-  # pull_request:
-  #   paths:
-  #     - 'content/**/*.md'
-  #     - 'templates/**'
+  pull_request:
+    paths:
+      - 'content/**/*.md'
+      - 'templates/**'
 
 jobs:
   generate:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - id: generate
-        uses: riceball-tw/goog@v2.0.0
+        uses: riceball-tw/goog@v3.0.0
         with:
           scan_markdown: content/blog
           template: templates/og.html

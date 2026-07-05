@@ -29,6 +29,9 @@ on:
 
 jobs:
   generate:
+    permissions:
+      contents: read
+      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
