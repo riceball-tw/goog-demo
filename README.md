@@ -60,7 +60,7 @@ The workflow at `.github/workflows/og-images.yml` uses the **riceball-tw/goog@v2
 
 ## Required Frontmatter Format
 
-Each markdown file needs an `ogImage` section:
+Each markdown file needs an `ogImage` section. All keys under `ogImage` become template variables (use `{{.key_name}}` to render):
 
 ```yaml
 ---
@@ -81,7 +81,7 @@ ogImage:
 go install github.com/riceball-tw/goog/cmd/goog@latest
 
 # Generate from markdown frontmatter
-goog --scan_markdown content/blog --template templates/og.html
+goog --scan-markdown content/blog --template templates/og.html
 
 # Batch mode from JSON
 goog --config images.json --workers 4

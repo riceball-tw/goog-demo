@@ -1,23 +1,29 @@
 [
   {
-    "title": "Welcome to My Blog",
-    "description": "Discover amazing content about Go, DevOps, and more",
-    "tag": "Welcome",
-    "site_name": "myblog.dev",
+    "vars": {
+      "title": "Welcome to My Blog",
+      "description": "Discover amazing content about Go, DevOps, and more",
+      "tag": "Welcome",
+      "site_name": "myblog.dev"
+    },
     "out": "out/welcome.png"
   },
   {
-    "title": "Go Tips & Tricks",
-    "description": "Level up your Go programming skills",
-    "tag": "Go",
-    "site_name": "myblog.dev",
+    "vars": {
+      "title": "Go Tips & Tricks",
+      "description": "Level up your Go programming skills",
+      "tag": "Go",
+      "site_name": "myblog.dev"
+    },
     "out": "out/go-tips.png"
   },
   {
-    "title": "DevOps Best Practices",
-    "description": "CI/CD, monitoring, and infrastructure as code",
-    "tag": "DevOps",
-    "site_name": "myblog.dev",
+    "vars": {
+      "title": "DevOps Best Practices",
+      "description": "CI/CD, monitoring, and infrastructure as code",
+      "tag": "DevOps",
+      "site_name": "myblog.dev"
+    },
     "out": "out/devops.png"
   }
 ]

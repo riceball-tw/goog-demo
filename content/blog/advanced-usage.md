@@ -19,17 +19,21 @@ Create an `images.json` file:
 ```json
 [
   {
-    "title": "Post 1",
-    "description": "First post",
-    "tag": "Blog",
-    "site_name": "myblog.dev",
+    "vars": {
+      "title": "Post 1",
+      "description": "First post",
+      "tag": "Blog",
+      "site_name": "myblog.dev"
+    },
     "out": "out/post1.png"
   },
   {
-    "title": "Post 2",
-    "description": "Second post",
-    "tag": "Blog",
-    "site_name": "myblog.dev",
+    "vars": {
+      "title": "Post 2",
+      "description": "Second post",
+      "tag": "Blog",
+      "site_name": "myblog.dev"
+    },
     "out": "out/post2.png"
   }
 ]
