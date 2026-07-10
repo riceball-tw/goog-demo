@@ -22,7 +22,7 @@ jobs:
         with:
           fetch-depth: 0
       - id: generate
-        uses: riceball-tw/goog@v3.0.2
+        uses: riceball-tw/goog@v3.0.3
         with:
           scan_markdown: content/blog
           template: templates/og.html
